@@ -1,5 +1,6 @@
 import db from "../models/index";
 import bcrypt from "bcryptjs";
+import allcode from "../models/allcode";
 var salt = bcrypt.genSaltSync(10);
 let handleUserLogin = (email, password) => {
   return new Promise(async (resolve, reject) => {
@@ -8,7 +9,7 @@ let handleUserLogin = (email, password) => {
       let isExit = await checkUserEmail(email);
       if (isExit) {
         let user = await db.User.findOne({
-          attributes: ["email", "roleId", "password"],
+          attributes: ["email", "roleId", "password", "firstName", "LastName"],
           where: { email: email },
           raw: true,
         });
@@ -110,8 +111,9 @@ let createNewUser = async (data) => {
           firstName: data.firstName,
           lastName: data.lastName,
           address: data.address,
-          gender: data.gender === "1" ? true : false,
+          gender: data.gender,
           roleId: data.roleId,
+          positionId: data.positionId,
           phoneNumber: data.phoneNumber,
         });
         resolve({
@@ -182,10 +184,33 @@ let updateUserData = (data) => {
     }
   });
 };
+let getAllCodeService = (typeInput) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!typeInput) {
+        resolve({
+          errCode: 1,
+          errMessage: "Missing request parameter !",
+        });
+      } else {
+        let res = {};
+        let allCode = await db.Allcode.findAll({
+          where: { type: typeInput },
+        });
+        res.errCode = 0;
+        res.data = allCode;
+        resolve(res);
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 module.exports = {
   handleUserLogin: handleUserLogin,
   getAllUsers: getAllUsers,
   createNewUser: createNewUser,
   deleteUser: deleteUser,
   updateUserData: updateUserData,
+  getAllCodeService: getAllCodeService,
 };

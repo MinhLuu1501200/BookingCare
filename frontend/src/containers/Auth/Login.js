@@ -48,8 +48,8 @@ class Login extends Component {
         });
       }
       if (data && data.errCode === 0) {
-        this.props.userLoginSuccess(data.user);
-        console.log("Login Successful");
+        this.props.userLoginSuccess(data.userData);
+        console.log("Login Successful", data);
       }
     } catch (error) {
       if (error.response) {
@@ -154,8 +154,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     navigate: (path) => dispatch(push(path)),
     // userLoginFail: () => dispatch(actions.adminLoginFail()),
-    userLoginSuccess: (userInfor) =>
-      dispatch(actions.userLoginSuccess(userInfor)),
+    userLoginSuccess: (userInfor) => {
+      dispatch(actions.userLoginSuccess(userInfor));
+    },
   };
 };
 

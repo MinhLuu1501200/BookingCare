@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import "./Specialty.scss";
+import "./HandBook.scss";
 import "../HomePage.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import specialtImg from "../../../assets/images/specialty/co-xuong-khop.jpg";
 import Slider from "react-slick";
-import "./Specialty.scss";
+import "./HandBook.scss";
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
   return (
@@ -28,7 +28,7 @@ function SamplePrevArrow(props) {
     />
   );
 }
-class Specialty extends Component {
+class HandBook extends Component {
   render() {
     let settings = {
       dots: false,
@@ -43,7 +43,7 @@ class Specialty extends Component {
       <div className="section-specialty">
         <div className="section-container">
           <div className="section-header">
-            <span className="title-section">Chuyên khoa phổ biến</span>
+            <span className="title-section">Cẩm nang </span>
             <button className="btn-section"> Xem thêm </button>
           </div>
           <div className="section-body">
@@ -91,4 +91,4 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Specialty);
+export default connect(mapStateToProps, mapDispatchToProps)(HandBook);

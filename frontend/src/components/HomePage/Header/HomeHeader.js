@@ -4,13 +4,14 @@ import { connect } from "react-redux";
 import "./HomeHeader.scss";
 class HomeHeader extends Component {
   render() {
+    console.log("user info", this.props.userInfor);
     return (
       <>
         <div className="home-header-container">
           <div className="home-header-content">
             <div className="left-content">
               <div className="header-icon-dropdown">
-                <i class="fas fa-bars"></i>
+                <i className="fas fa-bars"></i>
               </div>
               <div className="header-logo"></div>
             </div>
@@ -42,7 +43,7 @@ class HomeHeader extends Component {
             </div>
             <div className="right-content">
               <div className="support">
-                <i class="fas fa-question-circle"></i>Hỗ trợ
+                <i className="fas fa-question-circle"></i>Hỗ trợ
               </div>
               {/* <div className="language-vi">VN</div>
               <div className="language-en">EN</div> */}
@@ -84,20 +85,20 @@ class HomeHeader extends Component {
                 </div>
                 <div className="option-child">
                   <div className="icon-child">
-                    <i class="fas fa-flask"></i>
+                    <i className="fas fa-flask"></i>
                   </div>
                   <div className="text-child">Xét nghiệm y học </div>
                 </div>
                 <div className="option-child">
                   <div className="icon-child">
-                    <i class="fas fa-user-md"></i>
+                    <i className="fas fa-user-md"></i>
                   </div>
                   <div className="text-child">Sức khỏe tinh thần</div>
                 </div>
 
                 <div className="option-child">
                   <div className="icon-child">
-                    <i class="fas fa-briefcase-medical"></i>
+                    <i className="fas fa-briefcase-medical"></i>
                   </div>
                   <div className="text-child">Khám nha khoa</div>
                 </div>
@@ -113,6 +114,7 @@ class HomeHeader extends Component {
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.user.isLoggedIn,
+
     language: state.app.language,
   };
 };

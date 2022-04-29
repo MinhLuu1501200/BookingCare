@@ -8,6 +8,8 @@ import "slick-carousel/slick/slick-theme.css";
 import specialtImg from "../../../assets/images/specialty/co-xuong-khop.jpg";
 import Slider from "react-slick";
 import "./OutstandingDoctor.scss";
+import * as actions from "../../../store/actions";
+
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
   return (
@@ -29,7 +31,25 @@ function SamplePrevArrow(props) {
   );
 }
 class OutstandingDoctor extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      arrDoctors: [],
+    };
+  }
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.topsDoctorsRedux !== this.props.topsDoctorsRedux) {
+      this.setState({
+        arrDoctors: this.props.topsDoctorsRedux,
+      });
+    }
+  }
+  componentDidMount() {
+    this.props.loadTopDoctor();
+  }
   render() {
+    let topDoctors = this.props.topsDoctorsRedux;
+
     let settings = {
       dots: false,
       infinite: true,
@@ -49,60 +69,26 @@ class OutstandingDoctor extends Component {
             </div>
             <div className="section-body">
               <Slider {...settings}>
-                <div className="outstanding-doctor-customize">
-                  <img src={specialtImg} alt="" />
-                  <div className="outstanding-doctor-title">
-                    Bác sĩ Chuyên Khoa II Trần Minh Nguyên
-                  </div>
-                  <div className="outstanding-doctor-subtitle">
-                    Sức khỏe tâm thần
-                  </div>
-                </div>
-                <div className="outstanding-doctor-customize">
-                  <img src={specialtImg} alt="" />
-                  <div className="outstanding-doctor-title">
-                    Bác sĩ Chuyên Khoa II Trần Minh Nguyên
-                  </div>
-                  <div className="outstanding-doctor-subtitle">
-                    Sức khỏe tâm thần
-                  </div>
-                </div>{" "}
-                <div className="outstanding-doctor-customize">
-                  <img src={specialtImg} alt="" />
-                  <div className="outstanding-doctor-title">
-                    Bác sĩ Chuyên Khoa II Trần Minh Nguyên
-                  </div>
-                  <div className="outstanding-doctor-subtitle">
-                    Sức khỏe tâm thần
-                  </div>
-                </div>{" "}
-                <div className="outstanding-doctor-customize">
-                  <img src={specialtImg} alt="" />
-                  <div className="outstanding-doctor-title">
-                    Bác sĩ Chuyên Khoa II Trần Minh Nguyên
-                  </div>
-                  <div className="outstanding-doctor-subtitle">
-                    Sức khỏe tâm thần
-                  </div>
-                </div>{" "}
-                <div className="outstanding-doctor-customize">
-                  <img src={specialtImg} alt="" />
-                  <div className="outstanding-doctor-title">
-                    Bác sĩ Chuyên Khoa II Trần Minh Nguyên
-                  </div>
-                  <div className="outstanding-doctor-subtitle">
-                    Sức khỏe tâm thần
-                  </div>
-                </div>{" "}
-                <div className="outstanding-doctor-customize">
-                  <img src={specialtImg} alt="" />
-                  <div className="outstanding-doctor-title">
-                    Bác sĩ Chuyên Khoa II Trần Minh Nguyên
-                  </div>
-                  <div className="outstanding-doctor-subtitle">
-                    Sức khỏe tâm thần
-                  </div>
-                </div>
+                {topDoctors &&
+                  topDoctors.length > 0 &&
+                  topDoctors.map((item, index) => {
+                    let imageBase64 = "";
+                    if (item.image) {
+                      imageBase64 = new Buffer(item.image, "base64").toString(
+                        "binary"
+                      );
+                    }
+                    let nameVi = `${item.positionData.valueVI}, ${item.lastName} ${item.firstName}`;
+                    return (
+                      <div className="outstanding-doctor-customize" key={index}>
+                        <img src={imageBase64} alt="" />
+                        <div className="outstanding-doctor-title">{nameVi}</div>
+                        <div className="outstanding-doctor-subtitle">
+                          Sức khỏe tâm thần
+                        </div>
+                      </div>
+                    );
+                  })}
               </Slider>
             </div>
           </div>
@@ -116,11 +102,14 @@ const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.user.isLoggedIn,
     language: state.app.language,
+    topsDoctorsRedux: state.admin.topDoctors,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    loadTopDoctor: () => dispatch(actions.fetchTopDoctor()),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(OutstandingDoctor);

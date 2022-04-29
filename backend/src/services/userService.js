@@ -15,9 +15,7 @@ let handleUserLogin = (email, password) => {
         });
         if (user) {
           // compare password
-
           let check = await bcrypt.compareSync(password, user.password);
-
           if (check) {
             userData.errCode = 0;
             userData.errMessage = "OK";
@@ -35,7 +33,6 @@ let handleUserLogin = (email, password) => {
         userData.errCode = 1;
         userData.errMessage = `Your's email isn't exist in system. Plz try other email`;
       }
-
       resolve(userData);
     } catch (e) {
       reject(e);
@@ -95,6 +92,7 @@ let hashUserPassword = (password) => {
 };
 let createNewUser = async (data) => {
   return new Promise(async (resolve, reject) => {
+    console.log(data);
     try {
       //check email is exist ?
       let check = await checkUserEmail(data.email);
@@ -115,6 +113,7 @@ let createNewUser = async (data) => {
           roleId: data.roleId,
           positionId: data.positionId,
           phoneNumber: data.phoneNumber,
+          image: data.avatar,
         });
         resolve({
           errCode: 0,
@@ -168,6 +167,10 @@ let updateUserData = (data) => {
           firstName: data.firstName,
           lastName: data.lastName,
           address: data.address,
+          roleId: data.roleId,
+          positionId: data.positionId,
+          gender: data.gender,
+          phoneNumber: user.phoneNumber,
         });
         resolve({
           errCode: 0,

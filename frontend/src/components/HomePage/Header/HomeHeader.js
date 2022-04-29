@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import "./HomeHeader.scss";
 class HomeHeader extends Component {
   render() {
-    console.log("user info", this.props.userInfor);
+    // console.log("user info", this.props.userInfor);
     return (
       <>
         <div className="home-header-container">

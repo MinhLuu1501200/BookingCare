@@ -1,0 +1,30 @@
+.doctor-container {
+  padding: 0 30px;
+  .manage-doctor-editor {
+    margin-top: 30px;
+  }
+  .save-content-doctor {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    border-radius: 3px;
+    outline: none;
+    border: none;
+    padding: 5px 10px;
+    background-color: orange;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+  .more-infor {
+    margin: 20px 0;
+    display: flex;
+    gap: 15px;
+    .content-left {
+      width: 40%;
+    }
+    .content-right {
+      width: 60%;
+    }
+  }
+}

@@ -6,6 +6,9 @@ import {
   deleteUserService,
   editUserService,
   getTopDoctorHomeService,
+  getAllDoctor,
+  saveDetailDoctor,
+  saveDetailDoctorService,
 } from "../../services/userService";
 import actionTypes from "./actionTypes";
 // import { getAllCodeService } from "../../../services/userService";
@@ -201,6 +204,51 @@ export const fetchTopDoctor = () => {
     } catch (err) {
       dispatch({
         type: actionTypes.FETCH_TOP_DOCTORS_FAILED,
+      });
+    }
+  };
+};
+export const fetchALLDoctors = () => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getAllDoctor();
+      if (res && res.errCode === 0) {
+        dispatch({
+          type: actionTypes.FETCH_ALL_DOCTORS_SUCCESS,
+          dataDoctors: res.data,
+        });
+      } else {
+        dispatch({
+          type: actionTypes.FETCH_ALL_DOCTORS_FAILED,
+        });
+      }
+    } catch (err) {
+      dispatch({
+        type: actionTypes.FETCH_ALL_DOCTORS_FAILED,
+      });
+    }
+  };
+};
+export const saveDetailDoctorAction = (data) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await saveDetailDoctorService(data);
+      if (res && res.errCode === 0) {
+        toast.success("Tạo thông tin bác sĩ thành công !!!");
+        dispatch({
+          type: actionTypes.SAVE_DETAIL_DOCTORS_SUCCESS,
+          dataDoctors: res.data,
+        });
+      } else {
+        toast.error("Tạo thông tin bác sĩ không  thành công !!!");
+        dispatch({
+          type: actionTypes.SAVE_DETAIL_DOCTORS_FAILED,
+        });
+      }
+    } catch (err) {
+      toast.error("Tạo thông tin bác sĩ không thành công !!!");
+      dispatch({
+        type: actionTypes.SAVE_DETAIL_DOCTORS_FAILED,
       });
     }
   };

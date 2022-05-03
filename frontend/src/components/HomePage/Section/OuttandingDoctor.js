@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 import specialtImg from "../../../assets/images/specialty/co-xuong-khop.jpg";
 import Slider from "react-slick";
 import "./OutstandingDoctor.scss";
+import { withRouter } from "react-router";
 import * as actions from "../../../store/actions";
 
 function SampleNextArrow(props) {
@@ -47,6 +48,9 @@ class OutstandingDoctor extends Component {
   componentDidMount() {
     this.props.loadTopDoctor();
   }
+  handleViewDetailDoctor = (doctor) => {
+    this.props.history.push(`/detail-doctor/${doctor.id}`);
+  };
   render() {
     let topDoctors = this.props.topsDoctorsRedux;
 
@@ -80,7 +84,11 @@ class OutstandingDoctor extends Component {
                     }
                     let nameVi = `${item.positionData.valueVI}, ${item.lastName} ${item.firstName}`;
                     return (
-                      <div className="outstanding-doctor-customize" key={index}>
+                      <div
+                        className="outstanding-doctor-customize"
+                        key={index}
+                        onClick={() => this.handleViewDetailDoctor(item)}
+                      >
                         <img src={imageBase64} alt="" />
                         <div className="outstanding-doctor-title">{nameVi}</div>
                         <div className="outstanding-doctor-subtitle">
@@ -112,4 +120,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(OutstandingDoctor);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(OutstandingDoctor)
+);

@@ -10,6 +10,20 @@
     outline: none;
     border: none;
     padding: 5px 10px;
+    background-color: rgb(27, 47, 233);
+    color: white;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+  .edit-content-doctor {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    border-radius: 3px;
+    outline: none;
+    border: none;
+    padding: 5px 10px;
     background-color: orange;
     cursor: pointer;
     &:hover {

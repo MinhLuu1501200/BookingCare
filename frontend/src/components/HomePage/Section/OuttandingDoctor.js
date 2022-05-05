@@ -53,7 +53,7 @@ class OutstandingDoctor extends Component {
   };
   render() {
     let topDoctors = this.props.topsDoctorsRedux;
-
+    console.log(topDoctors);
     let settings = {
       dots: false,
       infinite: true,

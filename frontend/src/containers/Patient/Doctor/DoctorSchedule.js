@@ -1,19 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import HomeHeader from "../../../components/HomePage/Header/HomeHeader";
+
 import moment from "moment";
 import {
   getDetailInforDoctor,
   getScheduleDoctorByDate,
 } from "../../../services/userService";
 import "./DoctorSchedule.scss";
-import { dateFormat } from "../../../utils";
+import BookingModal from "./BookingModal";
+
 class DoctorSchedule extends Component {
   constructor(props) {
     super(props);
     this.state = {
       allDays: [],
       allAvailableTime: [],
+      isOpenModalBooking: false,
+      dataScheduleTimeModal: {},
     };
   }
   capitalizeFirstLetter(string) {
@@ -69,9 +72,9 @@ class DoctorSchedule extends Component {
     if (this.props.doctorIdFromParent && this.props.doctorIdFromParent !== -1) {
       let doctorId = this.props.doctorIdFromParent;
       let date = event.target.value;
-      console.log(date, doctorId);
+
       let res = await getScheduleDoctorByDate(doctorId, date); // getScheduleDoctorByDate
-      console.log("check res schedule from react: ", res);
+
       if (res && res.errCode === 0) {
         this.setState({
           allAvailableTime: res.data ? res.data : [],
@@ -79,10 +82,26 @@ class DoctorSchedule extends Component {
       }
     }
   };
+  handleClickScheduleTime = (time) => {
+    console.log("datatime", time);
+    this.setState({
+      isOpenModalBooking: true,
+      dataScheduleTimeModal: time,
+    });
+  };
+  closeBookingClose = () => {
+    this.setState({
+      isOpenModalBooking: false,
+    });
+  };
   render() {
-    let { allDays, allAvailableTime } = this.state;
-    console.log("addDays", allDays);
-    console.log("availabale ", this.state.allAvailableTime);
+    let {
+      allDays,
+      allAvailableTime,
+      isOpenModalBooking,
+      dataScheduleTimeModal,
+    } = this.state;
+    console.log(this.state);
     return (
       <>
         <div className="doctor-schedule-container">
@@ -113,8 +132,10 @@ class DoctorSchedule extends Component {
                   <div className="time-content-btns">
                     {allAvailableTime.map((item, index) => {
                       return (
-                        <button key={index}>
-                          {" "}
+                        <button
+                          key={index}
+                          onClick={() => this.handleClickScheduleTime(item)}
+                        >
                           {item.timeTypeData.valueVI}
                         </button>
                       );
@@ -136,6 +157,12 @@ class DoctorSchedule extends Component {
             </div>
           </div>
         </div>
+
+        <BookingModal
+          isOpenModal={isOpenModalBooking}
+          closeBookingClose={this.closeBookingClose}
+          dataTime={dataScheduleTimeModal}
+        />
       </>
     );
   }

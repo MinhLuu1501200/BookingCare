@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import HomeHeader from "../../../components/HomePage/Header/HomeHeader";
 import { getDetailInforDoctor } from "../../../services/userService";
 import "./DetailDoctor.scss";
+import DoctorExtraInfor from "./DoctorExtraInfor";
 import DoctorSchedule from "./DoctorSchedule";
 class DetailDoctor extends Component {
   constructor(props) {
@@ -28,14 +29,14 @@ class DetailDoctor extends Component {
           detailDoctor: res.infor.data,
         });
       }
-      console.log(res);
+
       //   imageBase64 = new Buffer(user.image, "base64").toString("binary");
     }
   }
   componentDidUpdate(prevProps, prevState, snapshot) {}
   render() {
     let { detailDoctor } = this.state;
-    console.log(detailDoctor.positionData);
+
     let nameDoctor = `${
       detailDoctor.positionData && detailDoctor.positionData.valueVI
     }, ${detailDoctor.lastName} ${detailDoctor.firstName}`;
@@ -50,7 +51,7 @@ class DetailDoctor extends Component {
                 backgroundImage: `url(${this.state.detailDoctor.image})`,
               }}
             ></div>
-            <span class="_8f1i"></span>
+            <span className="_8f1i"></span>
             <div className="content-right">
               <div className="up">
                 <h2>{nameDoctor}</h2>
@@ -66,7 +67,11 @@ class DetailDoctor extends Component {
             <div className="content-left">
               <DoctorSchedule doctorIdFromParent={this.state.currentDoctorId} />
             </div>
-            <div className="content-right"></div>
+            <div className="content-right">
+              <DoctorExtraInfor
+                doctorIdFromParent={this.state.currentDoctorId}
+              />
+            </div>
           </div>
           <div className="wrapper-bg">
             {" "}

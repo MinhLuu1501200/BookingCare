@@ -35,8 +35,15 @@
   }
   .section-body {
     height: 300px;
-    .img-customize {
+    .medical-customize {
       padding: 0 5px;
+      img {
+        width: 300px;
+      }
+      &:hover {
+        color: #49bce2;
+        cursor: pointer;
+      }
     }
   }
 }

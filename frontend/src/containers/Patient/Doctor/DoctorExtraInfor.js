@@ -12,7 +12,16 @@ class DoctorExtraInfor extends Component {
       extraInfor: {},
     };
   }
-  componentDidMount() {}
+  async componentDidMount() {
+    if (this.props.doctorIdFromParent) {
+      let res = await getExtraInforDoctorById(this.props.doctorIdFromParent);
+      if (res && res.errCode === 0) {
+        this.setState({
+          extraInfor: res.data,
+        });
+      }
+    }
+  }
 
   async componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.doctorIdFromParent !== prevProps.doctorIdFromParent) {
@@ -31,7 +40,7 @@ class DoctorExtraInfor extends Component {
   };
   render() {
     let { isShowDetailInfor, extraInfor } = this.state;
-    console.log(extraInfor);
+
     return (
       <div className="doctor-extra-infor-container">
         <div className="content-up">

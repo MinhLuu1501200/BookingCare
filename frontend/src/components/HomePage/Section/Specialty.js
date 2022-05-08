@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
+import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import "./Specialty.scss";
 import "../HomePage.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import specialtImg from "../../../assets/images/specialty/co-xuong-khop.jpg";
+
 import Slider from "react-slick";
 import "./Specialty.scss";
+
+import { getAllSpecialty } from "../../../services/userService";
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
   return (
@@ -28,10 +31,32 @@ function SamplePrevArrow(props) {
     />
   );
 }
+
 class Specialty extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dataSpecialty: [],
+    };
+  }
+  async componentDidMount() {
+    let res = await getAllSpecialty();
+    if (res && res.errCode === 0) {
+      this.setState({
+        dataSpecialty: res.data ? res.data : [],
+      });
+    }
+  }
+  handleViewDetailSpecialty = (item) => {
+    if (this.props.history) {
+      this.props.history.push(`/detail-specialty/${item.id}`);
+    }
+  };
   render() {
+    let { dataSpecialty } = this.state;
+
     let settings = {
-      dots: false,
+      dots: true,
       infinite: true,
       speed: 500,
       slidesToShow: 4,
@@ -48,30 +73,26 @@ class Specialty extends Component {
           </div>
           <div className="section-body">
             <Slider {...settings}>
-              <div className="specialty-customize">
-                <img src={specialtImg} alt="" />
-                <div>Cơ xương khớp </div>
-              </div>
-              <div className="specialty-customize">
-                <img src={specialtImg} alt="" />
-                <div>Cơ xương khớp </div>
-              </div>
-              <div className="specialty-customize">
-                <img src={specialtImg} alt="" />
-                <div>Cơ xương khớp </div>
-              </div>
-              <div className="specialty-customize">
-                <img src={specialtImg} alt="" />
-                <div>Cơ xương khớp </div>
-              </div>
-              <div className="specialty-customize">
-                <img src={specialtImg} alt="" />
-                <div>Cơ xương khớp </div>
-              </div>
-              <div className="specialty-customize">
-                <img src={specialtImg} alt="" />
-                <div>Cơ xương khớp </div>
-              </div>
+              {dataSpecialty &&
+                dataSpecialty.length > 0 &&
+                dataSpecialty.map((item, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className="specialty-customize"
+                      onClick={() => {
+                        this.handleViewDetailSpecialty(item);
+                      }}
+                    >
+                      {/* <div
+                        className="bg-image section-specialty"
+                        style={{ backgroundImage: `url(${item.image})` }}
+                      ></div> */}
+                      <img src={item.image} alt="" />
+                      <div className="title-specialty">{item.name} </div>
+                    </div>
+                  );
+                })}
             </Slider>
           </div>
         </div>
@@ -91,4 +112,6 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Specialty);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Specialty)
+);

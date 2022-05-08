@@ -9,7 +9,14 @@ let handleUserLogin = (email, password) => {
       let isExit = await checkUserEmail(email);
       if (isExit) {
         let user = await db.User.findOne({
-          attributes: ["email", "roleId", "password", "firstName", "LastName"],
+          attributes: [
+            "id",
+            "email",
+            "roleId",
+            "password",
+            "firstName",
+            "lastName",
+          ],
           where: { email: email },
           raw: true,
         });
@@ -92,7 +99,6 @@ let hashUserPassword = (password) => {
 };
 let createNewUser = async (data) => {
   return new Promise(async (resolve, reject) => {
-    console.log(data);
     try {
       //check email is exist ?
       let check = await checkUserEmail(data.email);

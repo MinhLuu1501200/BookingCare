@@ -37,6 +37,14 @@
     height: 300px;
     .specialty-customize {
       padding: 0 5px;
+
+      &:hover {
+        color: #49bce2;
+        cursor: pointer;
+      }
+    }
+    .title-specialty {
+      margin-top: 5px;
     }
   }
 }

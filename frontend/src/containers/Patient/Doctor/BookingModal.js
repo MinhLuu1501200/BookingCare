@@ -95,9 +95,9 @@ class BookingModal extends Component {
     let date = new Date(this.state.birthday).getTime();
     let timeString = this.builtTimeBooking(this.props.dataTime);
     let doctorName = this.builtDoctorName(this.props.dataTime);
-    console.log("dataTimr", this.props.dataTime);
-    console.log("timeString", timeString);
-    console.log("doctorName", doctorName);
+    // console.log("dataTimr", this.props.dataTime);
+    // console.log("timeString", timeString);
+    // console.log("doctorName", doctorName);
     let res = await postPatientBookAppointment({
       fullName: this.state.fullName,
       phoneNumber: this.state.fullName,
@@ -112,7 +112,27 @@ class BookingModal extends Component {
       doctorName: doctorName,
     });
     if (res && res.errCode === 0) {
-      toast.success("Đặt lịch thành công !!!");
+      toast.success("Đặt lịch thành công !!!", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      this.setState({
+        fullName: "",
+        phoneNumber: "",
+        email: "",
+        address: "",
+        reason: "",
+        birthday: "",
+        selectedGender: "",
+        doctorId: "",
+        genders: "",
+        timeType: "",
+      });
       this.props.closeBookingClose();
     } else {
       toast.error(" Bookinganew appointment error!");
@@ -124,7 +144,7 @@ class BookingModal extends Component {
     let doctorId = dataTime.doctorId;
     let timeType = dataTime.timeType;
 
-    console.log("doctor id ", this.props.genders);
+    // console.log("doctor id ", this.props.genders);
     return (
       <>
         <Modal
@@ -146,6 +166,8 @@ class BookingModal extends Component {
                   doctorId={doctorId}
                   isShowDescriptionDoctor={false}
                   dateTime={dataTime}
+                  isShowLinkDetail={false}
+                  isShowPrice={false}
                 />
               </div>
 

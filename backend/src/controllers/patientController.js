@@ -7,7 +7,7 @@ let postBookAppointment = async (req, res) => {
     console.log(error);
     return res.status(200).json({
       errCode: -1,
-      errMessage: " Error from the server ",
+      errMessage: " Error from the server 3",
     });
   }
 };

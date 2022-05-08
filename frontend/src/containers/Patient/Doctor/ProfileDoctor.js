@@ -5,6 +5,7 @@ import { getProfileDoctorById } from "../../../services/userService";
 import "./ProfileDoctor.scss";
 import _ from "lodash";
 import moment from "moment";
+import { Link } from "react-router-dom";
 class ProfileDoctor extends Component {
   constructor(props) {
     super(props);
@@ -13,6 +14,7 @@ class ProfileDoctor extends Component {
     };
   }
   async componentDidMount() {
+    // console.log("check", this.props.doctorId);
     let data = await this.getInforDoctor(this.props.doctorId);
     this.setState({
       dataProfile: data,
@@ -28,19 +30,22 @@ class ProfileDoctor extends Component {
     }
     return result;
   };
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  async componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.doctorId !== prevProps.doctorId) {
+      let data = await this.getInforDoctor(this.props.doctorId);
+      this.setState({
+        dataProfile: data,
+      });
     }
   }
   renderTimeBooking = (dataTime) => {
-    console.log("render", dataTime);
     if (dataTime) {
       let time = dataTime.timeTypeData.valueVI;
       console.log("time d", time);
       let date = moment
         .unix(Date.parse(dataTime.date) / 1000)
         .format("dddd - DD/MM/YYYY");
-      console.log("date", +dataTime.date);
+
       return (
         <>
           <div>
@@ -54,8 +59,14 @@ class ProfileDoctor extends Component {
   };
   render() {
     let { dataProfile } = this.state;
-    let { isShowDescriptionDoctor, dateTime } = this.props;
-    console.log("date", dateTime);
+    let {
+      isShowDescriptionDoctor,
+      dateTime,
+      isShowLinkDetail,
+      doctorId,
+      isShowPrice,
+    } = this.props;
+
     let nameDoctor = "";
     if (dataProfile && dataProfile.positionData) {
       nameDoctor = `${dataProfile.positionData.valueVI}, ${dataProfile.lastName} ${dataProfile.firstName} `;
@@ -91,18 +102,25 @@ class ProfileDoctor extends Component {
               </div>
             </div>
           </div>
-          <div className="price">
-            Giá khám: &nbsp;
-            {dataProfile && dataProfile.Doctor_Infor && (
-              <NumberFormat
-                className="currency"
-                value={dataProfile.Doctor_Infor.priceTypeData.valueVI}
-                displayType={"text"}
-                thousandSeparator={true}
-                suffix={"VND"}
-              />
-            )}
-          </div>
+          {isShowLinkDetail === true && (
+            <div className="view-detail-doctor">
+              <Link to={`/detail-doctor/${doctorId}`}>Xem thêm ...</Link>
+            </div>
+          )}
+          {isShowPrice && (
+            <div className="price">
+              Giá khám: &nbsp;
+              {dataProfile && dataProfile.Doctor_Infor && (
+                <NumberFormat
+                  className="currency"
+                  value={dataProfile.Doctor_Infor.priceTypeData.valueVI}
+                  displayType={"text"}
+                  thousandSeparator={true}
+                  suffix={"VND"}
+                />
+              )}
+            </div>
+          )}
         </div>
       </>
     );

@@ -75,18 +75,23 @@ let postBookAppointmentService = (data) => {
           defaults: {
             email: data.email,
             roleId: "R3",
+            gender: data.selectedGender,
+            firstName: data.fullName,
+            phoneNumber: data.phoneNumber,
+            address: data.address,
           },
         });
-        console.log(user[0]);
+        console.log("user", user[0]);
         console.log(data);
         if (user && user[0]) {
+          console.log("time String", data.timeString);
           await db.Booking.findOrCreate({
-            where: { patientId: user[0].id },
+            where: { patientID: user[0].id },
             defaults: {
               statusID: "S1",
               doctorID: parseInt(data.doctorId),
               patientID: parseInt(user[0].id),
-              date: data.date,
+              date: data.timeString.slice(data.timeString.lastIndexOf(" ") + 1),
               timeType: data.timeType,
               token: token,
             },
@@ -98,6 +103,7 @@ let postBookAppointmentService = (data) => {
         });
       }
     } catch (err) {
+      console.log(err);
       reject(err);
     }
   });

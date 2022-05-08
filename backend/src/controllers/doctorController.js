@@ -5,7 +5,7 @@ let getTopDoctorHome = async (req, res) => {
   if (!limit) limit = 10;
   try {
     let doctors = await doctorService.getTopDoctorHomeService(+limit);
-    console.log(doctors);
+
     return res.status(200).json(doctors);
   } catch (err) {
     return res.status(200).json({
@@ -99,6 +99,32 @@ let getProfileDoctorByID = async (req, res) => {
     });
   }
 };
+let getListPatientForDoctor = async (req, res) => {
+  try {
+    let infor = await doctorService.getListPatientForDoctorService(
+      req.query.doctorId,
+      req.query.date
+    );
+    return res.status(200).json(infor);
+  } catch (e) {
+    console.log(e);
+    return res.status(200).json({
+      errCode: -1,
+      errMessage: "Error from the server",
+    });
+  }
+};
+let sendRemedy = async (req, res) => {
+  try {
+    let infor = await doctorService.sendRemedyService(req.body);
+    return res.status(200).json(infor);
+  } catch (e) {
+    return res.status(200).json({
+      errCode: -1,
+      errMessage: "Error from the server",
+    });
+  }
+};
 module.exports = {
   getTopDoctorHome: getTopDoctorHome,
   getAllDoctor: getAllDoctor,
@@ -108,4 +134,6 @@ module.exports = {
   getScheduleByDate: getScheduleByDate,
   getExtraInforById: getExtraInforById,
   getProfileDoctorByID: getProfileDoctorByID,
+  getListPatientForDoctor: getListPatientForDoctor,
+  sendRemedy: sendRemedy,
 };

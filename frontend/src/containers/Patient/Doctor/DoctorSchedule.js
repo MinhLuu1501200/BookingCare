@@ -43,17 +43,16 @@ class DoctorSchedule extends Component {
     });
   };
   async componentDidMount() {
-    // let res = await getScheduleDoctorByDate(
-    //   this.props.doctorIdFromParent,
-    //   allDays[0].value
-    // ); // getScheduleDoctorByDate
-    // console.log("check res schedule from react: ", res);
-    // if (res && res.errCode === 0) {
-    //   this.setState({
-    //     allAvailableTime: res.data ? res.data : [],
-    //   });
-    // }
-    this.getArrayDays();
+    let allDays = await this.getArrayDays();
+
+    let res = await getScheduleDoctorByDate(
+      this.props.doctorIdFromParent,
+      allDays && allDays[0] && allDays[0].value
+    );
+
+    this.setState({
+      allAvailableTime: res.data ? res.data : [],
+    });
   }
   async componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.doctorIdFromParent !== prevProps.doctorIdFromParent) {
@@ -83,7 +82,7 @@ class DoctorSchedule extends Component {
     }
   };
   handleClickScheduleTime = (time) => {
-    console.log("datatime", time);
+    console.log(time);
     this.setState({
       isOpenModalBooking: true,
       dataScheduleTimeModal: time,
@@ -101,7 +100,7 @@ class DoctorSchedule extends Component {
       isOpenModalBooking,
       dataScheduleTimeModal,
     } = this.state;
-    console.log(this.state);
+
     return (
       <>
         <div className="doctor-schedule-container">
@@ -121,7 +120,6 @@ class DoctorSchedule extends Component {
           <div className="all-available-time">
             <div className="text-calendar">
               <i className="fas fa-calendar-alt">
-                {" "}
                 <span>Lịch khám </span>{" "}
               </i>
             </div>

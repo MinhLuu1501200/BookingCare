@@ -8,6 +8,7 @@ import "./HomePage.scss";
 import OuttandingDoctor from "./Section/OuttandingDoctor";
 import Handbook from "./Section/Handbook";
 import About from "./Section/About";
+import Footer from "./Section/Footer";
 class HomePage extends Component {
   render() {
     // const { isLoggedIn } = this.props;
@@ -21,6 +22,7 @@ class HomePage extends Component {
         <OuttandingDoctor />
         <Handbook />
         <About />
+        <Footer />
       </>
     );
   }

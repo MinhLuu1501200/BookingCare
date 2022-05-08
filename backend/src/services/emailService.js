@@ -44,12 +44,12 @@ let getBodyHTMLEmailRemedy = (dataSend) => {
   `;
   return result;
 };
-let sendAttachtment = async (dataSend) => {
+let sendAttachment = async (dataSend) => {
   return new Promise(async (resolve, reject) => {
     try {
       let transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
-        port: 578,
+        port: 587,
         secure: false,
         auth: {
           user: process.env.EMAIL_APP,
@@ -79,5 +79,5 @@ let sendAttachtment = async (dataSend) => {
 };
 module.exports = {
   sendSimpleEmail: sendSimpleEmail,
-  sendAttachtment: sendAttachtmen,
+  sendAttachment: sendAttachment,
 };

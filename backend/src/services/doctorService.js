@@ -4,6 +4,7 @@ require("dotenv").config();
 import moment from "moment";
 const MAX_NUMBER_SCHEDULE = process.env.MAX_NUMBER_SCHEDULE;
 import _, { reject } from "lodash";
+import emailService from "./emailService";
 let getTopDoctorHomeService = (limitInput) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -492,39 +493,48 @@ let getListPatientForDoctorService = (doctorId, date) => {
     }
   });
 };
-let sendRemedyService = () => {
-  if (
-    !data.email ||
-    !data.doctorId ||
-    !data.patientId ||
-    !data.timeType ||
-    !data.image64
-  ) {
-    resolve({
-      errCode: 1,
-      errMessage: "Missing required parameters",
-    });
+let sendRemedyService = async (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      console.log(data);
+      if (
+        !data.email ||
+        !data.doctorId ||
+        !data.patientId ||
+        !data.timeType ||
+        !data.imgBase64
+      ) {
+        resolve({
+          errCode: 1,
+          errMessage: "Missing required parameters",
+        });
+      } else {
+        console.log("check in", data);
+        let selectedBooking = await db.Booking.findOne({
+          where: {
+            doctorID: data.doctorId,
+            patientID: data.patientId,
+            timeType: data.timeType,
+            statusID: "S2",
+          },
+          raw: false,
+        });
 
-  } else {
-
-    let appointment = await db.Booking.findOne({
-      where:{
-        doctorId: data.doctorId,
-        patientId: data.patientId,
-        timeType: data.timeType,
-        statusId: 'S2'
+        if (selectedBooking) {
+          selectedBooking.statusID = "S3";
+          await selectedBooking.save();
+        }
+        await emailService.sendAttachment(data);
+        await resolve({
+          errCode: 0,
+          errMessage: "ok",
+        });
       }
-    })
-    if(appointment){
-
-      appointment.statusId='S3';
-      await appointment.save()
+    } catch (err) {
+      console.log(err);
+      reject(err);
     }
-    resolve({
-      errCode:0,
-      errMessage: 'ok'
-    })
-  }
+  });
 };
 module.exports = {
   getTopDoctorHomeService: getTopDoctorHomeService,

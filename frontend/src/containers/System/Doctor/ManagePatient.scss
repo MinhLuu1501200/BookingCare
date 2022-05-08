@@ -1,4 +1,5 @@
 .manage-patient-container {
+  height: 100vh;
   .m-p-title {
     font-size: 20px;
     margin: 10px 0;
@@ -9,7 +10,12 @@
   }
   .manage-patient-body {
     padding: 0 20px;
+    label {
+      margin-bottom: 5px;
+      text-transform: uppercase;
+    }
     .table-manage-patient {
+      margin-top: 20px;
       table {
         width: 100%;
       }
@@ -26,12 +32,15 @@
           margin-right: 10px;
           height: 30px;
           border-radius: 3px;
-          background-color: orange;
+          background-color: rgb(34, 230, 83);
+          color: #ffffff;
+          text-align: center;
         }
         .mp-btn-remedy {
           height: 30px;
           border-radius: 3px;
           background: #39dca0;
+          text-align: center;
         }
       }
     }

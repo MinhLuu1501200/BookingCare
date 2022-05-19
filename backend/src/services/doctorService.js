@@ -140,7 +140,6 @@ let bulkCreateScheduleService = (data) => {
           schedule = schedule.map((item) => {
             item.maxNumber = parseInt(MAX_NUMBER_SCHEDULE);
             item.doctorId = data.doctorId;
-
             return item;
           });
         }
@@ -153,20 +152,21 @@ let bulkCreateScheduleService = (data) => {
           attributes: ["timeType", "date", "doctorId", "maxNumber"],
           raw: true,
         });
-
+        console.log(existing);
         //conveer date
-        if (existing && existing.length > 0) {
-          existing = existing.map((item) => {
-            item.date = moment(new Date(item.date) + 1).format("MM/DD/YYYY");
-            return item;
-          });
-        }
-
+        // if (existing && existing.length > 0) {
+        //   existing = existing.map((item) => {
+        //     item.date = moment(new Date(item.date) + 1).format("MM/DD/YYYY");
+        //     return item;
+        //   });
+        // }
+        console.log(existing);
+        //conveer date
         //compare differendt
         let toCreate = _.differenceWith(schedule, existing, (a, b) => {
           return a.timeType === b.timeType && a.date === b.date;
         });
-
+        console.log("toCreate", toCreate);
         if (toCreate && toCreate.length > 0) {
           await db.Schedule.bulkCreate(toCreate);
         }
@@ -493,6 +493,7 @@ let getListPatientForDoctorService = (doctorId, date) => {
     }
   });
 };
+
 let sendRemedyService = async (data) => {
   return new Promise(async (resolve, reject) => {
     try {

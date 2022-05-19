@@ -71,25 +71,88 @@ let getDetailSpecialtyByIdService = (inputId, location) => {
               },
               attributes: ["doctorId", "provinceId"],
             });
+            data.doctorSpecialty = doctorSpecialty;
+            console.log("hello", doctorSpecialty);
           } else {
             let doctorSpecialty = await db.Doctor_Infor.findAll({
               where: {
                 specialtyId: inputId,
-                province: location,
+                provinceId: location,
               },
               attributes: ["doctorId", "provinceId"],
+              raw: true,
             });
+            data.doctorSpecialty = doctorSpecialty;
+            console.log("data", doctorSpecialty);
           }
 
-          data.doctorSpecialty = doctorSpecialty;
           console.log("data", data);
         } else data = {};
+        resolve({
+          errCode: 0,
+          errMessage: "OK",
+          data,
+        });
       }
-      resolve({
-        errCode: 0,
-        errMessage: "OK",
-        data,
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+let deleteSpecialtyService = (specialtyId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let specialty = await db.Specialty.findOne({
+        where: { id: specialtyId.id },
       });
+      console.log(specialty);
+      if (!specialty) {
+        resolve({
+          errCode: 2,
+          errMessage: "The Specialty isn't exist",
+        });
+      } else {
+        await db.Specialty.destroy({
+          where: { id: specialtyId.id },
+        });
+        resolve({ errCode: 0, message: "The clinic is deleted" });
+      }
+    } catch (err) {
+      reject(err);
+    }
+  });
+};
+let updateSpecialtyData = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!data.id) {
+        resolve({
+          errCode: 2,
+          errMessage: "Missing required parameters",
+        });
+      }
+      let specialty = await db.Specialty.findOne({
+        where: { id: data.id },
+        raw: false,
+      });
+      console.log(specialty);
+      if (specialty) {
+        await specialty.update({
+          name: data.name,
+          descriptionHTML: data.descriptionHTML,
+          descriptionMarkdown: data.descriptionMarkdown,
+          image: data.avatar === "" ? data.image : data.avatar,
+        });
+        resolve({
+          errCode: 0,
+          errMessage: "Update the user success!",
+        });
+      } else {
+        resolve({
+          errCode: 1,
+          errMessage: "User not found ",
+        });
+      }
     } catch (e) {
       reject(e);
     }
@@ -99,4 +162,6 @@ module.exports = {
   createSpecialtyService: createSpecialtyService,
   getAllSpecialtyService: getAllSpecialtyService,
   getDetailSpecialtyByIdService: getDetailSpecialtyByIdService,
+  updateSpecialtyData: updateSpecialtyData,
+  deleteSpecialtyService: deleteSpecialtyService,
 };

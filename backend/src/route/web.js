@@ -41,10 +41,6 @@ let initWebRoutes = (app) => {
   );
   router.post("/api/send-remedy", doctorController.sendRemedy);
 
-
-
-
-  
   // router.get(
   //   "/api/get-detail-doctor-by-id",
   //   doctorController.getDetailDoctorByID
@@ -74,19 +70,26 @@ let initWebRoutes = (app) => {
     "/api/verify-book-appointment",
     patientController.postVerifyBookAppointment
   );
+
+  //specialty
   router.post("/api/create-new-specialty", specialtyController.createSpecialty);
   router.get("/api/get-specialty", specialtyController.getAllSpecialty);
   router.get(
     "/api/get-detail-specialty-by-id",
     specialtyController.getDetailSpecialtyById
   );
+  router.delete("/api/delete-specialty", specialtyController.deleteSpecialty);
+  router.put("/api/edit-specialty", specialtyController.handleEditSpecialty);
+
+  //
   router.post("/api/create-new-clinic", clinicController.createClinic);
   router.get("/api/get-clinic", clinicController.getALLClinic);
+  router.delete("/api/delete-clinic", clinicController.deleteClinic);
   router.get(
     "/api/get-detail-clinic-by-id",
     clinicController.getDetailClinicById
   );
-
+  router.put("/api/edit-clinic", clinicController.handleEditClinic);
   return app.use("/", router);
 };
 module.exports = initWebRoutes;

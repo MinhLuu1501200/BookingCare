@@ -10,6 +10,8 @@ import Slider from "react-slick";
 import "./OutstandingDoctor.scss";
 import { withRouter } from "react-router";
 import * as actions from "../../../store/actions";
+import { getAction } from "connected-react-router";
+import { getAllSpecialty } from "../../../services/userService";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -38,6 +40,7 @@ class OutstandingDoctor extends Component {
     super(props);
     this.state = {
       arrDoctors: [],
+      allSpecialty: [],
     };
   }
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -47,11 +50,16 @@ class OutstandingDoctor extends Component {
       });
     }
   }
-  componentDidMount() {
+  async componentDidMount() {
     this.props.loadTopDoctor();
   }
   handleViewDetailDoctor = (doctor) => {
     this.props.history.push(`/detail-doctor/${doctor.id}`);
+  };
+  handleViewAllDoctors = () => {
+    if (this.props.history) {
+      this.props.history.push(`/all-doctor`);
+    }
   };
   render() {
     let topDoctors = this.props.topsDoctorsRedux;
@@ -71,7 +79,15 @@ class OutstandingDoctor extends Component {
           <div className="section-container">
             <div className="section-header">
               <span className="title-section">Bác sĩ nổi bật tuần qua</span>
-              <button className="btn-section"> Tìm kiếm </button>
+              <button
+                className="btn-section"
+                onClick={() => {
+                  this.handleViewAllDoctors();
+                }}
+              >
+                {" "}
+                Tìm kiếm{" "}
+              </button>
             </div>
             <div className="section-body">
               <Slider {...settings}>

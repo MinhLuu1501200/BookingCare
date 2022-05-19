@@ -62,7 +62,7 @@ class HomeHeader extends Component {
               <div className="content-up">
                 <div className="title1">NỀN TẢNG Y TẾ </div>
                 <div className="title2">CHĂM SÓC SỨC KHỎE TOÀN DIỆN </div>
-                <div className="search">
+                {/* <div className="search">
                   <i className="fas fa-search"></i>
                   <input
                     type="text"
@@ -70,7 +70,7 @@ class HomeHeader extends Component {
                     id=""
                     placeholder="Tìm chuyên khoa khám bệnh "
                   />
-                </div>
+                </div> */}
               </div>
               <div className="content-down">
                 <div className="options">

@@ -183,7 +183,7 @@ class ManageDoctor extends Component {
       this.state;
     let res = await getDetailInforDoctor(selectedOption.value);
     let resData = res.infor.data;
-    console.log(res.infor);
+    // console.log(res.infor);
     if (
       res &&
       res.infor.errCode === 0 &&

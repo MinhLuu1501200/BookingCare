@@ -78,7 +78,7 @@ class MedicalFacility extends Component {
                 this.handleViewAllClinic();
               }}
             >
-              Xem thêm{" "}
+              Xem thêm
             </button>
           </div>
           <div className="section-body">

@@ -94,8 +94,70 @@ let getDetailClinicById = (inputId) => {
     }
   });
 };
+let deleteClinicService = (clinicId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let clinic = await db.Clinic.findOne({
+        where: { id: clinicId.id },
+      });
+      console.log(clinic);
+      if (!clinic) {
+        resolve({
+          errCode: 2,
+          errMessage: "The clinic isn't exist",
+        });
+      } else {
+        await db.Clinic.destroy({
+          where: { id: clinicId.id },
+        });
+        resolve({ errCode: 0, message: "The clinic is deleted" });
+      }
+    } catch (err) {
+      reject(err);
+    }
+  });
+};
+let updateClinicData = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!data.id) {
+        resolve({
+          errCode: 2,
+          errMessage: "Missing required parameters",
+        });
+      }
+      let clinic = await db.Clinic.findOne({
+        where: { id: data.id },
+        raw: false,
+      });
+      console.log(clinic);
+      if (clinic) {
+        await clinic.update({
+          name: data.name,
+          address: data.address,
+          descriptionHTML: data.descriptionHTML,
+          descriptionMarkdown: data.descriptionMarkdown,
+          image: data.avatar === "" ? data.image : data.avatar,
+        });
+        resolve({
+          errCode: 0,
+          errMessage: "Update the user success!",
+        });
+      } else {
+        resolve({
+          errCode: 1,
+          errMessage: "User not found ",
+        });
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 module.exports = {
   createClinicService: createClinicService,
   getAllClinicService: getAllClinicService,
   getDetailClinicById: getDetailClinicById,
+  deleteClinicService: deleteClinicService,
+  updateClinicData: updateClinicData,
 };

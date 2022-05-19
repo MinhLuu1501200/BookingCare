@@ -109,55 +109,6 @@ export const saveUserFailed = () => ({
   type: "CREATE_USER_FAILED",
 });
 
-export const fetchAllUserStart = () => {
-  return async (dispatch, getState) => {
-    try {
-      let res = await getAllUsers("ALL");
-      let res1 = await getTopDoctorHomeService("");
-      // console.log("doctor", res1);
-      if (res && res.errCode === 0) {
-        dispatch(fetchAllUserSuccess(res.users.reverse()));
-      } else {
-        dispatch(fetchAllUserFailed());
-      }
-    } catch (err) {
-      dispatch(fetchAllUserFailed());
-    }
-  };
-};
-export const fetchAllUserSuccess = (data) => ({
-  type: "FETCH_ALL_USERS_SUCCESS",
-  users: data,
-});
-export const fetchAllUserFailed = () => ({
-  type: "FETCH_ALL_USERS_FAILED",
-});
-export const deleteNewUser = (userId) => {
-  return async (dispatch, getState) => {
-    try {
-      let res = await deleteUserService(userId);
-
-      if (res && res.errCode === 0) {
-        toast.success("Xóa người dùng thành công !!!");
-        dispatch(saveUserSuccess(res.data));
-        dispatch(fetchAllUserStart());
-      } else {
-        toast.success("Xóa người dùng không thành công !!!");
-        dispatch(saveUserFailed());
-      }
-    } catch (err) {
-      dispatch(fetchRoleFailed());
-    }
-  };
-};
-export const deleteUserSuccess = (data) => ({
-  type: actionTypes.DELETE_USER_SUCCESS,
-  users: data,
-});
-export const deleteAllUserFailed = () => ({
-  type: actionTypes.DELETE_USER_FAILED,
-});
-
 export const editAUser = (userId) => {
   return async (dispatch, getState) => {
     try {
@@ -319,3 +270,110 @@ export const fetchRequiredDoctorInforSuccess = (allRequiredData) => ({
 export const fetchRequiredDoctorInforFailed = () => ({
   type: actionTypes.FETCH_REQUIRED_DOCTOR_INFOR_FAILED,
 });
+
+export const fetchAllUserStart = () => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getAllUsers("ALL");
+      let res1 = await getTopDoctorHomeService("");
+      // console.log("doctor", res1);
+      if (res && res.errCode === 0) {
+        dispatch(fetchAllUserSuccess(res.users.reverse()));
+      } else {
+        dispatch(fetchAllUserFailed());
+      }
+    } catch (err) {
+      dispatch(fetchAllUserFailed());
+    }
+  };
+};
+export const fetchAllUserSuccess = (data) => ({
+  type: "FETCH_ALL_USERS_SUCCESS",
+  users: data,
+});
+export const fetchAllUserFailed = () => ({
+  type: "FETCH_ALL_USERS_FAILED",
+});
+
+export const deleteNewUser = (userId) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await deleteUserService(userId);
+
+      if (res && res.errCode === 0) {
+        toast.success("Xóa người dùng thành công !!!");
+        dispatch(saveUserSuccess(res.data));
+        dispatch(fetchAllUserStart());
+      } else {
+        toast.success("Xóa người dùng không thành công !!!");
+        dispatch(saveUserFailed());
+      }
+    } catch (err) {
+      dispatch(fetchRoleFailed());
+    }
+  };
+};
+export const deleteUserSuccess = (data) => ({
+  type: actionTypes.DELETE_USER_SUCCESS,
+  users: data,
+});
+export const deleteAllUserFailed = () => ({
+  type: actionTypes.DELETE_USER_FAILED,
+});
+
+export const fetchAllClinicStart = () => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getAllClinic();
+
+      if (res && res.errCode === 0) {
+        dispatch(fetchClinicSuccess(res.data));
+      } else {
+        dispatch(fetchAllUserFailed());
+      }
+    } catch (err) {
+      dispatch(fetchClinicFailed());
+    }
+  };
+};
+export const fetchClinicSuccess = (data) => ({
+  type: "FETCH_CLINIC_SUCCESS",
+  users: data,
+});
+export const fetchClinicFailed = () => ({
+  type: "FETCH_CLINIC_FAILED",
+});
+export const deleteClinic = (clinicId) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await deleteClinic(clinicId);
+
+      if (res && res.errCode === 0) {
+        toast.success("Xóa thành công", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        dispatch(saveUserSuccess(res.data));
+        dispatch(fetchAllUserStart());
+      } else {
+        toast.success("Xoá thất bại ", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        dispatch(saveUserFailed());
+      }
+    } catch (err) {
+      dispatch(fetchRoleFailed());
+    }
+  };
+};

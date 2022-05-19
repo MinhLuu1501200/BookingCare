@@ -25,6 +25,8 @@ import Doctor from "../routes/Doctor";
 import VerifyEmail from "./Patient/VerifyEmail";
 import DetailSpecialty from "./Patient/Specialty/DetailSpecialty";
 import DetailClinic from "./Patient/Clinic/DetailClinic";
+import ListSpecialty from "../components/HomePage/Section/More/ListSpecialty";
+import ListClinic from "../components/HomePage/Section/MoreClinics/ListClinic";
 class App extends Component {
   handlePersistorState = () => {
     const { persistor } = this.props;
@@ -77,7 +79,9 @@ class App extends Component {
                     path={path.DETAIL_SPECIALTY}
                     component={DetailSpecialty}
                   />
+                  <Route path={path.ALL_SPECIALTY} component={ListSpecialty} />
                   <Route path={path.DETAIL_CLINIC} component={DetailClinic} />
+                  <Route path={path.ALL_CLINIC} component={ListClinic} />
                 </Switch>
               </CustomScrollbars>
             </span>

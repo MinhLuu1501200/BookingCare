@@ -27,8 +27,9 @@
       }
       .header-logo {
         margin-left: 12px;
-        background: url("../../../assets/images/bookingcare-2020.svg") no-repeat;
-        background-position-y: center;
+        padding-top: 12px;
+        background: url("../../../assets/images/LOGO.svg") no-repeat;
+        background-position-y: -31px;
         background-size: 40%;
         height: 100%;
         width: 100%;
@@ -80,8 +81,7 @@
   }
 }
 .home-header-banner {
-  background: url("../../../assets/images/bookingcare-cover-4.jpg") center
-    center no-repeat;
+  background: url("../../../assets/banner.jpg") center center no-repeat;
 
   height: 700px;
   background-repeat: no-repeat;

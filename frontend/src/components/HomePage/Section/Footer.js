@@ -15,7 +15,6 @@ function Footer() {
         fontSize: "20px",
       }}
     >
-      {" "}
       @2022 BookingCare
     </div>
   );

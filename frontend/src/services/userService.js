@@ -83,6 +83,22 @@ const getAllPatientForDoctor = (data) => {
 const postSendRemedy = (data) => {
   return axios.post("/api/send-remedy", data);
 };
+const deleteClinic = (clinicId) => {
+  return axios.delete("/api/delete-clinic", { data: { id: clinicId } });
+};
+
+const editClinicService = (inputData) => {
+  // error api without found user
+  return axios.put("/api/edit-clinic", inputData);
+};
+const deleteSpecial = (specialtyId) => {
+  return axios.delete("/api/delete-specialty", { data: { id: specialtyId } });
+};
+
+const editSpecialtyService = (inputData) => {
+  // error api without found user
+  return axios.put("/api/edit-specialty", inputData);
+};
 export {
   handleLoginApi,
   getAllUsers,
@@ -108,4 +124,8 @@ export {
   getAllDetailClinicById,
   getAllPatientForDoctor,
   postSendRemedy,
+  deleteClinic,
+  editClinicService,
+  deleteSpecial,
+  editSpecialtyService,
 };

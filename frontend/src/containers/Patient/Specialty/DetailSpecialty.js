@@ -64,8 +64,7 @@ class DetailSpecialty extends Component {
           this.setState({
             dataDetailSpecialty: res.data,
             arrDoctorId: arrDoctorId,
-            listProvince: resProvince.data,
-            listtProvince: dataProvince ? dataProvince : [],
+            listProvince: dataProvince ? dataProvince : [],
           });
         }
       }
@@ -79,26 +78,34 @@ class DetailSpecialty extends Component {
     ) {
       let id = this.props.match.params.id;
       let location = event.target.value;
-
+      console.log("check", id, location);
       let res = await getAllDetailSpecialtyById({
         id: id,
         location: location,
       });
-
+      console.log(res);
+      console.log("res", res);
       if (res && res.errCode === 0) {
         let data = res.data;
-        let arrDocttorId = [];
-        if (data && _.isEmpty(res.data)) {
+        console.log("data", data);
+        let arrDoctorId = [];
+        if (data && data.doctorSpecialty && data.doctorSpecialty.length > 0) {
+          console.log("ok");
           let arr = data.doctorSpecialty;
+          console.log(arr);
           if (arr && arr.length) {
             arr.map((item) => {
-              arrDocttorId.push(item.doctorId);
+              arrDoctorId.push(item.doctorId);
             });
           }
-
+          console.log("sate", this.state);
           this.setState({
             dataDetailSpecialty: res.data,
-            arrDoctorId: arrDocttorId,
+            arrDoctorId: arrDoctorId,
+          });
+        } else {
+          this.setState({
+            arrDoctorId: [],
           });
         }
       }
@@ -127,7 +134,7 @@ class DetailSpecialty extends Component {
                 )}
               </div>
               <div className="search-sp-doctor">
-                <select onChange={(event) => this.handleOnChangeSlect(event)}>
+                <select onChange={(event) => this.handleOnChangeSelect(event)}>
                   {listProvince.map((item, index) => {
                     return (
                       <option key={index} value={item.keyMap}>

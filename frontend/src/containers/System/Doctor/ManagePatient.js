@@ -136,6 +136,7 @@ class ManagePatient extends Component {
                     </tr>
                     {dataPatient && dataPatient.length > 0 ? (
                       dataPatient.map((item, index) => {
+                        console.log(item);
                         return (
                           <tr key={index}>
                             <td>{index + 1}</td>
@@ -150,6 +151,7 @@ class ManagePatient extends Component {
                               >
                                 Xác nhận
                               </button>
+                              <button className="mp-btn-cancel">Hủy</button>
                               {/* <button
                                 className="mp-btn-remedy"
                                 onClick={() => this.handleBtnRemedy()}

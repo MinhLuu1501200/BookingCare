@@ -52,6 +52,11 @@ class Specialty extends Component {
       this.props.history.push(`/detail-specialty/${item.id}`);
     }
   };
+  handleViewAllSpecialty = () => {
+    if (this.props.history) {
+      this.props.history.push(`/all-specialty`);
+    }
+  };
   render() {
     let { dataSpecialty } = this.state;
 
@@ -69,7 +74,15 @@ class Specialty extends Component {
         <div className="section-container">
           <div className="section-header">
             <span className="title-section">Chuyên khoa phổ biến</span>
-            <button className="btn-section"> Xem thêm </button>
+            <button
+              className="btn-section"
+              onClick={() => {
+                this.handleViewAllSpecialty();
+              }}
+            >
+              {" "}
+              Xem thêm{" "}
+            </button>
           </div>
           <div className="section-body">
             <Slider {...settings}>

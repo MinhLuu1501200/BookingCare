@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { postVerifyBookAppointment } from "../../services/userService";
 import "./VerifyEmail.scss";
+import Confirm from "../../assets/images/thanhcong.png";
 import HomeHeader from "../../components/HomePage/Header/HomeHeader";
 class VerifyEmail extends Component {
   constructor(props) {
@@ -47,8 +48,13 @@ class VerifyEmail extends Component {
             <div>
               {" "}
               {+errCode === 0 ? (
-                <div className="infor-booking">
-                  Xác nhận lịch hẹn thành công{" "}
+                <div>
+                  <div>
+                    <img src={Confirm} alt="" />
+                  </div>
+                  <div className="infor-booking">
+                    Xác nhận lịch hẹn thành công
+                  </div>
                 </div>
               ) : (
                 <div className="infor-booking">

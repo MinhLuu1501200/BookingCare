@@ -3,6 +3,10 @@ import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import _ from "lodash";
+import MarkdownIt from "markdown-it";
+import MdEditor from "react-markdown-editor-lite";
+
+const mdParser = new MarkdownIt(/* Markdown-it options */);
 class ModelEditUser extends Component {
   constructor(props) {
     super(props);
@@ -122,6 +126,11 @@ class ModelEditUser extends Component {
               />
             </div>
           </div>
+          <MdEditor
+            renderHTML={(text) => mdParser.render(text)}
+            onChange={this.handleEditorChange}
+            value={this.state.descriptionMarkdown}
+          />
         </ModalBody>
         <ModalFooter>
           <Button

@@ -71,6 +71,7 @@ class DoctorSchedule extends Component {
     if (this.props.doctorIdFromParent && this.props.doctorIdFromParent !== -1) {
       let doctorId = this.props.doctorIdFromParent;
       let date = event.target.value;
+      console.log("date", date);
 
       let res = await getScheduleDoctorByDate(doctorId, date); // getScheduleDoctorByDate
 

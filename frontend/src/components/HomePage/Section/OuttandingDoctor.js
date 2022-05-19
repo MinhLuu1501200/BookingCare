@@ -21,6 +21,7 @@ function SampleNextArrow(props) {
     />
   );
 }
+
 function SamplePrevArrow(props) {
   const { className, style, onClick } = props;
   return (
@@ -31,6 +32,7 @@ function SamplePrevArrow(props) {
     />
   );
 }
+
 class OutstandingDoctor extends Component {
   constructor(props) {
     super(props);
@@ -69,7 +71,7 @@ class OutstandingDoctor extends Component {
           <div className="section-container">
             <div className="section-header">
               <span className="title-section">Bác sĩ nổi bật tuần qua</span>
-              <button className="btn-section"> Xem thêm </button>
+              <button className="btn-section"> Tìm kiếm </button>
             </div>
             <div className="section-body">
               <Slider {...settings}>

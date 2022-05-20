@@ -78,13 +78,13 @@ class Login extends Component {
       <div className="login-background">
         <div className="login-container">
           <div className="login-content row">
-            <h2 className="col-12 text-center">Login</h2>
+            <h2 className="col-12 text-center">Đăng nhập</h2>
             <div className="col-12 form-group login-input">
-              <label> Username:</label>
+              <label> Tên tài khoản:</label>
               <input
                 type="text"
                 className="form-control"
-                placeholder="Enter your username"
+                placeholder="Nhập tên tài khoản"
                 onChange={(event) => {
                   this.handleOnChangeUserName(event);
                 }}
@@ -97,7 +97,7 @@ class Login extends Component {
                 <input
                   type={this.state.isShowPassword ? "text" : "password"}
                   className="form-control"
-                  placeholder="Enter your password"
+                  placeholder="Nhập vào mật khẩu "
                   onChange={(event) => {
                     this.handleOnChangePassword(event);
                   }}
@@ -127,10 +127,10 @@ class Login extends Component {
                   this.handleLogin();
                 }}
               >
-                Login
+                Đăng nhập
               </button>
             </div>
-
+            {/* 
             <div className="col-12">
               <span className="forgot-password">Forgot your password ?</span>
             </div>
@@ -141,7 +141,7 @@ class Login extends Component {
             <div className="col-12 social-login">
               <i className="fab fa-google-plus-g google"></i>
               <i className="fab fa-facebook-f facebook"></i>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

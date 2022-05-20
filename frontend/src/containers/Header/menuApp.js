@@ -70,13 +70,17 @@ export const adminMenu = [
     ],
   },
   {
-    //quan ly phong kham
+    //quan ly handbook
 
     name: "menu.admin.handbook",
     menus: [
       {
         name: "menu.admin.manage-handbook",
         link: "/system/manage-handbook",
+      },
+      {
+        name: "menu.admin.manage-handbook-list",
+        link: "/system/manage-handbook-list",
       },
     ],
   },
@@ -94,9 +98,7 @@ export const doctorMenu = [
       },
       {
         //manager user
-
         name: "menu.doctor.manage-patient",
-
         link: "/doctor/manage-patient",
       },
     ],

@@ -17,6 +17,7 @@ class DoctorSchedule extends Component {
       allAvailableTime: [],
       isOpenModalBooking: false,
       dataScheduleTimeModal: {},
+      date: "",
     };
   }
   capitalizeFirstLetter(string) {
@@ -71,6 +72,10 @@ class DoctorSchedule extends Component {
     if (this.props.doctorIdFromParent && this.props.doctorIdFromParent !== -1) {
       let doctorId = this.props.doctorIdFromParent;
       let date = event.target.value;
+      this.setState({
+        ...this.state,
+        date: date,
+      });
       console.log("date", date);
 
       let res = await getScheduleDoctorByDate(doctorId, date); // getScheduleDoctorByDate
@@ -100,6 +105,7 @@ class DoctorSchedule extends Component {
       allAvailableTime,
       isOpenModalBooking,
       dataScheduleTimeModal,
+      date,
     } = this.state;
 
     return (
@@ -161,6 +167,7 @@ class DoctorSchedule extends Component {
           isOpenModal={isOpenModalBooking}
           closeBookingClose={this.closeBookingClose}
           dataTime={dataScheduleTimeModal}
+          currentDate={date}
         />
       </>
     );

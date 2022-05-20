@@ -3,6 +3,7 @@ import bodyParser from "body-parser"; //get params from client
 import viewEngine from "./config/viewEngine";
 import initWebRoutes from "./route/web";
 import connectDB from "./config/connectDB";
+const { sequelize } = require("./models");
 // import cors from "cors";
 require("dotenv").config();
 let app = express();

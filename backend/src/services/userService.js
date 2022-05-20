@@ -176,7 +176,8 @@ let updateUserData = (data) => {
           roleId: data.roleId,
           positionId: data.positionId,
           gender: data.gender,
-          phoneNumber: user.phoneNumber,
+          phoneNumber: data.phoneNumber,
+          image: data.avatar,
         });
         resolve({
           errCode: 0,

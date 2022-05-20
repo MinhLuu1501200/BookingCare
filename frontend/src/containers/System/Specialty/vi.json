@@ -24,7 +24,8 @@
       "manage-specialty": "Thêm mới chuyên khoa ",
       "manage-specialty-list": "Danh sách chuyên khoa ",
       "handbook": "Cẩm nang",
-      "manage-handbook": "Quản lý cẩm nang "
+      "manage-handbook": "Thêm mới cẩm nang ",
+      "manage-handbook-list": "Danh sách cẩm nang  "
     },
     "doctor": {
       "manage-schedule": "Quản lý kế hoạch khám bệnh ",

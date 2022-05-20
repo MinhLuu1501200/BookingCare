@@ -5,12 +5,14 @@ import doctorController from "../controllers/doctorController";
 import patientController from "../controllers/patientController";
 import specialtyController from "../controllers/specialtyController";
 import clinicController from "../controllers/clinicController";
+import handbookController from "../controllers/handbookController";
 let router = express.Router();
 
 let initWebRoutes = (app) => {
   router.get("/", (req, res) => {
     return res.send("Hello world ");
   });
+
   //rest api demo
   router.get("/homepage", homeController.getHomePage);
   router.get("/aboutpage", homeController.getAboutPage);
@@ -90,6 +92,16 @@ let initWebRoutes = (app) => {
     clinicController.getDetailClinicById
   );
   router.put("/api/edit-clinic", clinicController.handleEditClinic);
+  //
+  router.post("/api/create-new-handbook", handbookController.createHandbook);
+  router.delete("/api/delete-handbook", handbookController.deleteHandbook);
+  router.get("/api/get-handbook", handbookController.getAllHandbook);
+  router.get(
+    "/api/get-detail-handbook-by-id",
+    handbookController.getDetailHandbookById
+  );
+  router.put("/api/edit-handbook", handbookController.handleEditHandbook);
   return app.use("/", router);
 };
+
 module.exports = initWebRoutes;

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { withRouter } from "react-router";
 import { connect } from "react-redux";
+import { withRouter } from "react-router";
 import "./MedicalFacility.scss";
 import "../HomePage.scss";
 import "slick-carousel/slick/slick.css";

@@ -99,6 +99,24 @@ const editSpecialtyService = (inputData) => {
   // error api without found user
   return axios.put("/api/edit-specialty", inputData);
 };
+//handbook
+const createNewHandbook = (data) => {
+  return axios.post("/api/create-new-handbook", data);
+};
+const getAllHandBook = () => {
+  return axios.get("/api/get-handbook");
+};
+const deleteHandbook = (handbookId) => {
+  return axios.delete("/api/delete-handbook", { data: { id: handbookId } });
+};
+const editHandbookService = (inputData) => {
+  // error api without found user
+  return axios.put("/api/edit-handbook", inputData);
+};
+const getAllDetailHandBookById = (data) => {
+  return axios.get(`/api/get-detail-handbook-by-id?id=${data.id}`);
+};
+
 export {
   handleLoginApi,
   getAllUsers,
@@ -128,4 +146,9 @@ export {
   editClinicService,
   deleteSpecial,
   editSpecialtyService,
+  createNewHandbook,
+  getAllHandBook,
+  deleteHandbook,
+  editHandbookService,
+  getAllDetailHandBookById,
 };

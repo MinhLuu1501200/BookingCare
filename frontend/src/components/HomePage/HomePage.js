@@ -11,9 +11,6 @@ import About from "./Section/About";
 import Footer from "./Section/Footer";
 class HomePage extends Component {
   render() {
-    // const { isLoggedIn } = this.props;
-    // let linkToRedirect = isLoggedIn ? "/system/user-manage" : "/login";
-
     return (
       <>
         <HomeHeader isShowBanner={true} />

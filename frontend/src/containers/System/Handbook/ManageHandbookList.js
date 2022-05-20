@@ -2,65 +2,65 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import { CommonUtils } from "../../../utils";
-import "./ManagerSpecialtyList.scss";
+// import "./ManagerSpecialtyList.scss";
 import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
 import {
   createNewClinic,
   deleteClinic,
-  deleteSpecial,
-  getAllSpecialty,
+  deleteHandbook,
+  getAllHandBook,
 } from "../../../services/userService";
-import { getAllClinic } from "../../../services/userService";
+
 import { Avatar, Table } from "antd";
 import ModalEdit from "./ModalEdit";
 import swal from "sweetalert";
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
-class ManageSpecialtyList extends Component {
+class ManageHandList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataSpecialties: [],
+      dataHandbook: [],
       isOpen: false,
       editItem: {},
     };
   }
-  getAllClinic = async () => {
-    let res = await getAllClinic();
+  getAllHandBook = async () => {
+    let res = await getAllHandBook();
     if (res && res.errCode === 0) {
       this.setState({
-        dataSpecialties: res.data ? res.data : [],
+        dataHandbook: res.data ? res.data : [],
       });
     }
   };
   async componentDidMount() {
-    let res = await getAllSpecialty();
+    let res = await getAllHandBook();
     console.log(res);
     if (res && res.errCode === 0) {
       this.setState({
-        dataSpecialties: res.data ? res.data : [],
+        dataHandbook: res.data ? res.data : [],
       });
     }
   }
   async componentDidUpdate(prevProps, prevState, snapshot) {
     console.log(prevState);
-    if (prevState.dataSpecialties !== this.state.dataSpecialties) {
-      let res = await getAllClinic();
-      if (res && res.errCode === 0) {
-        this.setState({
-          dataSpecialties: res.data ? res.data : [],
-        });
-      }
-    }
+    // if (prevState.dataHandbook !== this.state.dataHandbook) {
+    //   let res = await getAllHandBook();
+    //   if (res && res.errCode === 0) {
+    //     this.setState({
+    //       dataHandbook: res.data ? res.data : [],
+    //     });
+    //   }
+    // }
   }
-  getAllSpecialty = async () => {
-    let res = await getAllSpecialty();
+  getAllHandBook = async () => {
+    let res = await getAllHandBook();
 
     if (res && res.errCode === 0) {
       this.setState({
-        dataSpecialties: res.data ? res.data : [],
+        dataHandbook: res.data ? res.data : [],
       });
     }
   };
@@ -77,7 +77,7 @@ class ManageSpecialtyList extends Component {
     }).then(async (willDelete) => {
       console.log(willDelete);
       if (willDelete) {
-        let res = await deleteSpecial(item.id);
+        let res = await deleteHandbook(item.id);
         if (res && res.errCode === 0) {
           toast.success("Xóa thành công", {
             position: "top-right",
@@ -88,7 +88,7 @@ class ManageSpecialtyList extends Component {
             draggable: true,
             progress: undefined,
           });
-          this.getAllClinic();
+          this.getAllHandBook();
         } else {
           toast.error("Xoá thất bại ", {
             position: "top-right",
@@ -104,6 +104,7 @@ class ManageSpecialtyList extends Component {
     });
   };
   handleEdit = (item) => {
+    console.log("item", item);
     this.setState({
       ...this.state,
       isOpen: true,
@@ -118,35 +119,35 @@ class ManageSpecialtyList extends Component {
   };
 
   render() {
-    let { dataSpecialties } = this.state;
-    console.log("dảa:", dataSpecialties);
+    let { dataHandbook } = this.state;
+    console.log("dảa:", dataHandbook);
     return (
       <>
         <ModalEdit
           isOpen={this.state.isOpen}
           hiddenModel={this.hiddenModel}
           editItem={this.state.editItem}
-          getAllSpecialty={this.getAllSpecialty}
+          getAllHandBook={this.getAllHandBook}
         />
         <div className="table-clinic">
-          <div className="header">Danh Sách Chuyên Khoa</div>
+          <div className="header">Danh Sách Cẩm Nang </div>
 
           <table cellSpacing="0">
             <tr>
               <th>Ảnh </th>
-              <th>Tên phòng khám </th>
+              <th>Tiêu đề </th>
               <th></th>
             </tr>
             <tbody>
-              {dataSpecialties &&
-                dataSpecialties.length > 0 &&
-                dataSpecialties.map((item, index) => {
+              {dataHandbook &&
+                dataHandbook.length > 0 &&
+                dataHandbook.map((item, index) => {
                   return (
                     <tr key={index}>
                       <td>
                         <img src={item.image} alt="" />
                       </td>
-                      <td>{item.name}</td>
+                      <td>{item.title}</td>
                       <td>
                         <button
                           className="btn-edit"
@@ -180,7 +181,4 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ManageSpecialtyList);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageHandList);

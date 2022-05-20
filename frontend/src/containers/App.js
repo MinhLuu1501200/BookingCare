@@ -28,6 +28,8 @@ import DetailClinic from "./Patient/Clinic/DetailClinic";
 import ListSpecialty from "../components/HomePage/Section/More/ListSpecialty";
 import ListClinic from "../components/HomePage/Section/MoreClinics/ListClinic";
 import ListDoctors from "../components/HomePage/Section/Doctors/ListDoctors";
+import DetailHandbook from "./Patient/Handbook/DetailHandbook";
+import ListHandbook from "../components/HomePage/Section/AllHandbook/ListHandbook";
 class App extends Component {
   handlePersistorState = () => {
     const { persistor } = this.props;
@@ -82,7 +84,12 @@ class App extends Component {
                   />
                   <Route path={path.ALL_SPECIALTY} component={ListSpecialty} />
                   <Route path={path.DETAIL_CLINIC} component={DetailClinic} />
+                  <Route
+                    path={path.DETAIL_HANDBOOK}
+                    component={DetailHandbook}
+                  />
                   <Route path={path.ALL_CLINIC} component={ListClinic} />
+                  <Route path={path.ALL_HANDBOOK} component={ListHandbook} />
                   <Route path={path.ALL_DOCTORS} component={ListDoctors} />
                 </Switch>
               </CustomScrollbars>

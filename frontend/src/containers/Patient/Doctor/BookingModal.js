@@ -74,6 +74,7 @@ class BookingModal extends Component {
     });
   };
   handleOnchangeDatePicker = (date) => {
+    console.log(date);
     this.setState({
       birthday: date[0],
     });
@@ -102,7 +103,7 @@ class BookingModal extends Component {
       email: this.state.email,
       address: this.state.address,
       reason: this.state.reason,
-      date: date,
+      date: this.props.currentDate,
       selectedGender: this.state.selectedGender.value,
       doctorId: doctorId,
       timeType: timeType,
@@ -133,7 +134,7 @@ class BookingModal extends Component {
       });
       this.props.closeBookingClose();
     } else {
-      toast.error(" Bookinganew appointment error!");
+      toast.error(" Đặt lịch thất bại !");
     }
   };
 
@@ -153,7 +154,7 @@ class BookingModal extends Component {
         >
           <div className="booking-modal-content">
             <div className="booking-modal-header">
-              <span className="left">Thông tin đặt lịch khám bệnh </span>
+              <span className="left">Đặt lịch khám bệnh </span>
               <span className="right" onClick={closeBookingClose}>
                 <i className="fas fa-fa-times"></i>{" "}
               </span>
@@ -254,7 +255,7 @@ class BookingModal extends Component {
                   className="btn-booking-cancel"
                   onClick={closeBookingClose}
                 >
-                  Cancel
+                  Hủy
                 </button>
               </div>
             </div>

@@ -2,20 +2,20 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import { CommonUtils } from "../../../utils";
-import "./ManageSpecialty.scss";
+import "./ManageHandbook.scss";
 import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
-import { createNewSpecialty } from "../../../services/userService";
+import { createNewHandbook } from "../../../services/userService";
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
-class ManageSpecialty extends Component {
+class ManageHandbook extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
+      title: "",
       imageBase64: "",
-      descriptionHTML: "",
-      descriptionMarkdown: "",
+      contentHTML: "",
+      contentMarkdown: "",
     };
   }
   async componentDidMount() {}
@@ -30,8 +30,8 @@ class ManageSpecialty extends Component {
   };
   handleEditorChange = ({ html, text }) => {
     this.setState({
-      descriptionHTML: html,
-      descriptionMarkdown: text,
+      contentHTML: html,
+      contentMarkdown: text,
     });
   };
   handleOnChangeImage = async (event) => {
@@ -44,15 +44,15 @@ class ManageSpecialty extends Component {
       });
     }
   };
-  handleSaveNewSpecialty = async () => {
-    let res = await createNewSpecialty(this.state);
+  handleSaveNewHandbook = async () => {
+    let res = await createNewHandbook(this.state);
     if (res && res.errCode === 0) {
-      toast.success("Thêm chuyên khoa thành công");
+      toast.success("Thêm bài viết thành công ");
       this.setState({
-        name: "",
+        title: "",
         imageBase64: "",
-        descriptionHTML: "",
-        descriptionMarkdown: "",
+        contentHTML: "",
+        contentMarkdown: "",
       });
     } else {
       toast.error("Lỗi thêm chuyên khoa");
@@ -62,20 +62,20 @@ class ManageSpecialty extends Component {
     console.log("staete", this.state);
     return (
       <>
-        <div className="manage-specialty-container">
+        <div className="manage-Handbook-container">
           <div className="ms-title">Quản lý chuyên khoa</div>
-          <div className="add-new-specialty row">
+          <div className="add-new-Handbook row">
             <div className="col-6 form-group input-form">
-              <label htmlFor="">Tên chuyên khoa</label>
+              <label htmlFor="">Tên Bài Viết </label>
               <input
                 type="text"
                 className="form-control"
-                value={this.state.name}
-                onChange={(event) => this.handleOnchangeInput(event, "name")}
+                value={this.state.title}
+                onChange={(event) => this.handleOnchangeInput(event, "title")}
               />
             </div>
             <div className="col-6 form-group">
-              <label htmlFor="">Ảnh chuyên khoa </label>
+              <label htmlFor="">Ảnh Chính Bài Viết </label>
               <input
                 type="file"
                 className="form-control"
@@ -87,13 +87,13 @@ class ManageSpecialty extends Component {
                 style={{ height: "600px" }}
                 renderHTML={(text) => mdParser.render(text)}
                 onChange={this.handleEditorChange}
-                value={this.state.descriptionMarkdown}
+                value={this.state.contentMarkdown}
               />
             </div>
             <div className="col-12 form-group">
               <button
-                onClick={() => this.handleSaveNewSpecialty()}
-                className="btn-save-specialty"
+                onClick={() => this.handleSaveNewHandbook()}
+                className="btn-save-Handbook"
               >
                 Save
               </button>
@@ -113,4 +113,4 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageSpecialty);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageHandbook);

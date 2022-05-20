@@ -25,7 +25,7 @@ class ManagePatient extends Component {
   }
   async componentDidMount() {
     let { currentDate } = this.state;
-    let formatedDate = moment(currentDate).format("MM/DD/YYYY");
+    let formatedDate = moment(currentDate).format("DD/MM/YYYY");
     this.getDataPatient(this.props.user, formatedDate);
   }
   getDataPatient = async (user, formatedDate) => {
@@ -48,7 +48,7 @@ class ManagePatient extends Component {
       () => {
         let { user } = this.props;
         let { currentDate } = this.state;
-        let formatedDate = moment(currentDate).format("MM/DD/YYYY");
+        let formatedDate = moment(currentDate).format("DD/MM/YYYY");
         this.getDataPatient(user, formatedDate);
       }
     );

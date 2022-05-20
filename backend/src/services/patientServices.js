@@ -91,7 +91,7 @@ let postBookAppointmentService = (data) => {
               statusID: "S1",
               doctorID: parseInt(data.doctorId),
               patientID: parseInt(user[0].id),
-              date: data.timeString.slice(data.timeString.lastIndexOf(" ") + 1),
+              date: data.date,
               timeType: data.timeType,
               token: token,
             },

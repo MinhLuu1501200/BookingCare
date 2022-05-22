@@ -25,11 +25,13 @@ class ListHandbook extends Component {
     }
   }
   componentDidUpdate(prevProps, prevState, snapshot) {}
+
   handleViewDetailSpecialty = (item) => {
     if (this.props.history) {
       this.props.history.push(`/detail-handbook/${item.id}`);
     }
   };
+
   render() {
     let { dataHandbooks } = this.state;
     console.log(dataHandbooks);

@@ -28,7 +28,7 @@ class ManageSpecialtyList extends Component {
     };
   }
   getAllClinic = async () => {
-    let res = await getAllClinic();
+    let res = await getAllSpecialty();
     if (res && res.errCode === 0) {
       this.setState({
         dataSpecialties: res.data ? res.data : [],
@@ -44,17 +44,7 @@ class ManageSpecialtyList extends Component {
       });
     }
   }
-  async componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log(prevState);
-    if (prevState.dataSpecialties !== this.state.dataSpecialties) {
-      let res = await getAllClinic();
-      if (res && res.errCode === 0) {
-        this.setState({
-          dataSpecialties: res.data ? res.data : [],
-        });
-      }
-    }
-  }
+  async componentDidUpdate(prevProps, prevState, snapshot) {}
   getAllSpecialty = async () => {
     let res = await getAllSpecialty();
 
